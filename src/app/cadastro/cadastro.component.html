@@ -1,0 +1,50 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <label>Usuário:
+    <input formControlName="username">
+     @if (form.get('username')?.touched && form.get('username')?.invalid){
+      <div>
+        @if(form.get('username')?.errors?.['required']){
+          <small>Nome obrigatório !!</small>
+        }
+        @if(form.get('username')?.errors?.['minlength']){
+          <small>Nome com no minimo 3 letras !!</small>
+        }
+      </div>
+    }
+  </label>
+
+  <div formGroupName="passwords">
+    <label>Senha:
+      <input type="password" formControlName="password">
+      @if (form.get('passwords')?.get('password')?.touched && form.get('passwords')?.get('password')?.invalid)
+      {
+        <div>
+         @if(form.get('passwords')?.get('password')?.errors?.['required']){
+          <small>senha obrigatória !!</small>
+        }
+        </div>
+      }
+    </label>
+
+    <label>Confirmar senha:
+      <input type="password" formControlName="confirmPassword">
+      @if (form.get('passwords')?.get('confirmPassword')?.touched && form.get('passwords')?.get('confirmPassword')?.invalid)
+      {
+        <div>
+         @if(form.get('passwords')?.get('confirmPassword')?.errors?.['required']){
+          <small>Confirmar senha obrigatória !!</small>
+        }
+        </div>
+      }
+    </label>
+      @if (form.get('passwords')?.errors?.['senhasDiferentes'] && form.get('passwords')?.touched)
+      {
+        <div>
+          <small> As senhas são diferentes</small>
+          </div>
+
+      }
+  </div>
+
+  <button type="submit">Cadastrar</button>
+</form>
